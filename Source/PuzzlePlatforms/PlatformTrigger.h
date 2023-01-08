@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MovingPlatform.h"
 #include "GameFramework/Actor.h"
 #include "PlatformTrigger.generated.h"
 
@@ -14,6 +15,9 @@ class PUZZLEPLATFORMS_API APlatformTrigger : public AActor
 private:
 	UPROPERTY(VisibleAnywhere)
 	class UBoxComponent* TriggerVolume;
+
+	UPROPERTY(EditAnywhere)
+	TArray<AMovingPlatform*> PlatformsToTrigger;
 
 	UFUNCTION()
 	void OnOverlapBegin(UPrimitiveComponent* OverlappedComponent,

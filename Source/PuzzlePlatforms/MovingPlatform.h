@@ -21,10 +21,16 @@ public:
 	FVector TargetLocation;
 	UPROPERTY(EditAnywhere)
 	float Speed = 50;
+
+	void AddActiveTrigger();
+	void RemoveActiveTrigger();
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 private:
 	FVector GlobalStartingLocation;
 	FVector GlobalTargetLocation;
+
+	UPROPERTY(EditAnywhere)
+	int ActiveTriggers = 0;
 };
