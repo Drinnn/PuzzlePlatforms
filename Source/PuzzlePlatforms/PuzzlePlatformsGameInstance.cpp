@@ -3,15 +3,31 @@
 
 #include "PuzzlePlatformsGameInstance.h"
 
+#include "Blueprint/UserWidget.h"
+
 UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitializer& ObjectInitializer)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Game Instance Constructor"));
+	ConstructorHelpers::FClassFinder<UUserWidget> MenuBPClass(TEXT("/Game/KMenuSystem/WBP_MainMenu"));
+	if(!ensure(MenuBPClass.Class != nullptr)) return;
+
+	MenuClass = MenuBPClass.Class;
 }
 
 void UPuzzlePlatformsGameInstance::Init()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Game Instance Init"));
+	Super::Init();
 }
+
+void UPuzzlePlatformsGameInstance::LoadMenu()
+{
+	if(!ensure(MenuClass != nullptr)) return;
+
+	UUserWidget* Menu = CreateWidget<UUserWidget>(this, MenuClass);
+	if(!ensure(Menu != nullptr)) return;
+
+	Menu->AddToViewport();
+}
+
 
 void UPuzzlePlatformsGameInstance::Host() const
 {
